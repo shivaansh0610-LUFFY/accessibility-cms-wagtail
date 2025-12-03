@@ -1,0 +1,27 @@
+﻿{% extends 'wagtailadmin/base.html' %}
+
+{% block titletag %}{{ audit.page_name }}{% endblock %}
+
+{% block content %}
+<header class='header'>
+    <h1>{{ audit.page_name }}</h1>
+</header>
+
+<div class='nice-padding'>
+    <p><strong>URL:</strong> {{ audit.page_url }}</p>
+    <p><strong>Date:</strong> {{ audit.run_at|date:'Y-m-d H:i' }}</p>
+    <p><strong>Issues Found:</strong> <span style='color:red;font-size:1.5em;'>{{ audit.issues_found }}</span></p>
+    
+    <h2>Issues</h2>
+    {% for issue in issues %}
+    <div style='border:1px solid #ddd;padding:1rem;margin:1rem 0;'>
+        <h3>{{ issue.code }}</h3>
+        <p><strong>WCAG:</strong> {{ issue.wcag }}</p>
+        <p>{{ issue.message }}</p>
+        {% if issue.selector %}<p><strong>Selector:</strong> <code>{{ issue.selector }}</code></p>{% endif %}
+    </div>
+    {% empty %}
+    <p>No issues found!</p>
+    {% endfor %}
+</div>
+{% endblock %}

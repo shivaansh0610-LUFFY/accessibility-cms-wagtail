@@ -1,5 +1,4 @@
 ﻿{% extends 'wagtailadmin/base.html' %}
-{% load wagtailadmin_tags %}
 
 {% block titletag %}Run Accessibility Audit{% endblock %}
 
@@ -14,21 +13,21 @@
         
         <div class='field'>
             <label for='id_page_name'>Page Name</label>
-            <input type='text' name='page_name' id='id_page_name' required>
+            <input type='text' name='page_name' id='id_page_name' required class='input'>
         </div>
         
         <div class='field'>
             <label for='id_page_url'>Page URL</label>
-            <input type='url' name='page_url' id='id_page_url' required placeholder='https://example.com'>
+            <input type='url' name='page_url' id='id_page_url' required placeholder='https://example.com' class='input'>
         </div>
         
         <div class='field'>
             <label for='id_notes'>Notes (Optional)</label>
-            <textarea name='notes' id='id_notes' rows='4'></textarea>
+            <textarea name='notes' id='id_notes' rows='4' class='input'></textarea>
         </div>
         
         <button type='submit' class='button'>Run Audit</button>
-        <a href='{% url \"wagtailadmin_home\" %}' class='button button-secondary'>Cancel</a>
+        <a href='/admin/' class='button button-secondary'>Cancel</a>
     </form>
 </div>
 {% endblock %}

@@ -1,0 +1,39 @@
+﻿{% extends 'wagtailadmin/base.html' %}
+
+{% block titletag %}Audit History{% endblock %}
+
+{% block content %}
+<header class='header'>
+    <h1>Audit History</h1>
+    <div class='right'>
+        <a href='/admin/run-audit/' class='button'>Run New Audit</a>
+    </div>
+</header>
+
+<div class='nice-padding'>
+    <table class='listing'>
+        <thead>
+            <tr>
+                <th>Page Name</th>
+                <th>URL</th>
+                <th>Date</th>
+                <th>Issues</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for audit in audits %}
+            <tr>
+                <td>{{ audit.page_name }}</td>
+                <td>{{ audit.page_url }}</td>
+                <td>{{ audit.run_at|date:'Y-m-d H:i' }}</td>
+                <td><strong>{{ audit.issues_found }}</strong></td>
+                <td><a href='/admin/audit-detail/{{ audit.id }}/' class='button button-small'>View</a></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan='5' style='text-align:center;'>No audits yet</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
