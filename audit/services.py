@@ -7,7 +7,7 @@ def run_pa11y_audit(page_url, page_name, notes=''):
     try:
         result = subprocess.run(
             ['pa11y', '--reporter', 'json', page_url],
-            capture_output=True, text=True, timeout=60, shell=True
+            capture_output=True, text=True, timeout=60
         )
         
         issues_data = []
