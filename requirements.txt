@@ -210,6 +210,8 @@ wagtail-bakery==0.8.0
 waitress==3.0.2
 whitenoise==6.8.2
 gunicorn==23.0.0
+psycopg2-binary==2.9.10
+dj-database-url==2.2.0
 WebOb==1.8.9
 webresource==1.2
 WebTest==3.0.7

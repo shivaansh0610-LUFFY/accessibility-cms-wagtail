@@ -1,16 +1,23 @@
 from .base import *
 import os
+import dj_database_url
 
 DEBUG = False
 
-# Allow all hosts - Netlify handles domain routing
-ALLOWED_HOSTS = ['*']
+# Allow hosts from environment or default to Render domain
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '.onrender.com').split(',')
 
 # Secret key from environment variable
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'temporary-key-change-in-netlify')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'temporary-key-change-in-render')
 
-# Wagtail-bakery build directory
-BUILD_DIR = BASE_DIR / 'build'
+# Database - PostgreSQL on Render
+DATABASES = {
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+}
 
 # Static files configuration for production with whitenoise
 MIDDLEWARE = [
@@ -28,10 +35,12 @@ MIDDLEWARE = [
 # Use whitenoise for static file compression and caching
 STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# Wagtail-bakery configuration
-BAKERY_VIEWS = (
-    'wagtailbakery.views.AllPublishedPagesView',
-)
+# Wagtail admin base URL - update this with your Render URL after deployment
+WAGTAILADMIN_BASE_URL = os.environ.get('WAGTAILADMIN_BASE_URL', 'https://your-app.onrender.com')
+
+# Security settings for production
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'True') == 'True'
 
 try:
     from .local import *

@@ -1,0 +1,25 @@
+services:
+  # Web Service
+  - type: web
+    name: accessibility-cms-wagtail
+    runtime: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn mysite.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DJANGO_SETTINGS_MODULE
+        value: mysite.settings.production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+    autoDeploy: true
+
+databases:
+  # PostgreSQL Database
+  - name: accessibility-cms-db
+    plan: free
+    databaseName: accessibility_cms
+    user: accessibility_user
