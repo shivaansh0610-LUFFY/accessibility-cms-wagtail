@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'audit',
     "home",
     "search",
-    "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
     "wagtail.sites",
@@ -47,6 +46,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'bakery',
+    'wagtailbakery',
+    # ... your existing apps (wagtail, home, etc.)
+    'wagtail.contrib.forms',
+    # ... rest of your apps
 ]
 
 MIDDLEWARE = [
@@ -180,3 +184,13 @@ WAGTAILADMIN_BASE_URL = "http://example.com"
 # if untrusted users are allowed to upload files -
 # see https://docs.wagtail.org/en/stable/advanced_topics/deploying.html#user-uploaded-files
 WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
+
+# Wagtail-bakery build directory
+BUILD_DIR = BASE_DIR / 'build'
+
+# Wagtail-bakery views - build all published pages
+BAKERY_VIEWS = (
+    'wagtailbakery.views.AllPublishedPagesView',
+)
+
+
